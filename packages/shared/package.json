@@ -1,5 +1,5 @@
 {
-	"name": "@streamkit/typescript-config",
+	"name": "@streamkit/shared",
 	"version": "0.0.0",
 	"private": true,
 	"license": "MIT"
