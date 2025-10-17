@@ -1,0 +1,20 @@
+{
+	"name": "@streamkit/redis-http",
+	"type": "module",
+	"version": "0.1.0",
+	"scripts": {
+		"dev": "tsx watch src/index.ts",
+		"build": "tsc",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {
+		"@hono/node-server": "^1.19.5",
+		"hono": "^4.9.12",
+		"ioredis": "^5.8.1"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.17",
+		"tsx": "^4.7.1",
+		"typescript": "^5.8.3"
+	}
+}
