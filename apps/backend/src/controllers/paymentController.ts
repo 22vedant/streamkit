@@ -1,0 +1,71 @@
+import { Context } from 'hono';
+import { cashfreeService } from '../services/cashfree';
+
+export const createOrder = async (c: Context) => {
+	const cashfree = cashfreeService(c);
+	try {
+		const headers = c.get('headers');
+		const orderData = await c.req.json();
+		// console.log(orderData);
+
+		const result = await cashfree.createOrder({ orderData, headers });
+		const payment_session = result.response.data.payment_session_id;
+		console.log(payment_session);
+
+		const orderPayResult = await cashfree.orderPay({
+			payment_session,
+			orderData,
+			headers,
+		});
+		const combinedResult = {
+			...result.response.data,
+			...orderPayResult.data,
+		};
+		return c.json({
+			success: true,
+			status: 200,
+			result: combinedResult,
+			message: result.message,
+			requestId: headers['x-request-id'],
+		});
+	} catch (error) {
+		return c.json(
+			{
+				success: false,
+				error: error.message,
+				// message: 'in payments controller',
+			},
+			500
+		);
+	}
+};
+
+export const resendOTP = async (c: Context) => {
+	const cashfree = cashfreeService(c);
+	try {
+		const headers = c.get('headers');
+		const cf_payment_id = c.req.param('cf_payment_id');
+		// const { otp } = await c.req.body;
+
+		const submit = await cashfree.resendOTP({
+			headers,
+			cf_payment_id,
+		});
+
+		return c.json({
+			success: true,
+			status: 200,
+			result: submit.data,
+			requestId: headers['x-request-id'],
+		});
+	} catch (error: unknown) {
+		return c.json(
+			{
+				success: false,
+				status: error.status,
+				error: error.message,
+			},
+			500
+		);
+	}
+};

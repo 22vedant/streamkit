@@ -6,7 +6,7 @@ export const payments = new Hono();
 
 payments.use('*', cashfreeAuthMiddleware);
 
-payments.get('/', (c) =>
+payments.get('/test', (c) =>
 	c.json({
 		message: 'Authorized access 😈',
 	})
