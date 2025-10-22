@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
 	title: 'StreamKit',
-	tagline: 'Documentation for Streamkit Project',
+	tagline: 'Documentation for Streamkit',
 	favicon: 'img/favicon.ico',
 
 	// Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -42,10 +42,11 @@ const config: Config = {
 				docs: {
 					sidebarPath: './sidebars.ts',
 					// Please change this to your repo.
-					// Remove this to remove the "edit this page" links.
-					editUrl:
-						'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+					// // Remove this to remove the "edit this page" links.
+					// editUrl:
+					// 	'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
 				},
+
 				blog: {
 					showReadingTime: true,
 					feedOptions: {
@@ -72,7 +73,8 @@ const config: Config = {
 		// Replace with your project's social card
 		image: 'img/docusaurus-social-card.jpg',
 		colorMode: {
-			respectPrefersColorScheme: true,
+			defaultMode: 'dark',
+			disableSwitch: true,
 		},
 		navbar: {
 			title: 'Streamkit',
@@ -85,68 +87,17 @@ const config: Config = {
 					type: 'docSidebar',
 					sidebarId: 'tutorialSidebar',
 					position: 'left',
-					label: 'Tutorial',
-				},
-				// { to: '/blog', label: 'Blog', position: 'left' },
-				{
-					to: '/docs',
 					label: 'Docs',
-					position: 'left',
 				},
-				{
-					href: 'https://github.com/22vedant/streamkit',
-					label: 'GitHub',
-					position: 'right',
-				},
+				// {
+				// 	href: 'https://github.com/22vedant/streamkit',
+				// 	label: 'GitHub',
+				// 	position: 'right',
+				// },
 			],
 		},
 		footer: {
 			style: 'dark',
-			links: [
-				{
-					title: 'Docs',
-					items: [
-						{
-							label: 'Tutorial',
-							to: '/docs/intro',
-						},
-					],
-				},
-				// {
-				// 	title: 'Community',
-				// 	items: [
-				// 		{
-				// 			label: 'Stack Overflow',
-				// 			href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-				// 		},
-				// 		{
-				// 			label: 'Discord',
-				// 			href: 'https://discordapp.com/invite/docusaurus',
-				// 		},
-				// 		{
-				// 			label: 'X',
-				// 			href: 'https://x.com/docusaurus',
-				// 		},
-				// 	],
-				// },
-				{
-					title: 'Contact',
-					items: [
-						{
-							label: 'GitHub',
-							href: 'https://github.com/facebook/docusaurus',
-						},
-						{
-							label: 'Email',
-							href: 'mailto:vedantchinta@proton.me',
-						},
-						{
-							label: 'Telegram',
-							href: 'https://t.me/vvedant22',
-						},
-					],
-				},
-			],
 			copyright: `Copyright © ${new Date().getFullYear()} Streamkit. Built with Docusaurus.`,
 		},
 		prism: {
