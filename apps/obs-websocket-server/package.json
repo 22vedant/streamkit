@@ -1,0 +1,4 @@
+{
+  "name": "obs-websocket-server",
+  "packageManager": "yarn@4.10.3"
+}

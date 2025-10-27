@@ -7,11 +7,12 @@ export const createOrder = async (c: Context) => {
 		const headers = c.get('headers');
 		const orderData = await c.req.json();
 		// console.log(orderData);
-
+		// we are creating the order here.
 		const result = await cashfree.createOrder({ orderData, headers });
 		const payment_session = result.response.data.payment_session_id;
 		console.log(payment_session);
-
+		// logs orderid and details in postgres for further analysis.
+		// creating a orderPay session.
 		const orderPayResult = await cashfree.orderPay({
 			payment_session,
 			orderData,
@@ -28,6 +29,7 @@ export const createOrder = async (c: Context) => {
 			message: result.message,
 			requestId: headers['x-request-id'],
 		});
+		// trycatch for postgres successfully payment. Or after webhook confirmation.
 	} catch (error) {
 		return c.json(
 			{

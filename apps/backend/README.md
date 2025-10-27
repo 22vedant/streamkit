@@ -17,5 +17,9 @@ Pass the `CloudflareBindings` as generics when instantiation `Hono`:
 
 ```ts
 // src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>()
+const app = new Hono<{ Bindings: CloudflareBindings }>();
 ```
+
+[X] Payments
+[] Convert the payments into a transactions, if it fails rollback. Record order in DB
+[] Declare Tests for the backend for every route and its expected results.
