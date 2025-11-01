@@ -1,10 +1,13 @@
 import { Context } from 'hono';
-import { cashfreeService } from '../services/cashfree';
+import {
+	cashfreePaymentService,
+	cashfreePayoutService,
+} from '../services/cashfree';
 
 export const createOrder = async (c: Context) => {
-	const cashfree = cashfreeService(c);
+	const cashfree = cashfreePaymentService(c);
 	try {
-		const headers = c.get('headers');
+		const headers = c.get('headers_payments');
 		const orderData = await c.req.json();
 		// console.log(orderData);
 		// we are creating the order here.
@@ -43,9 +46,9 @@ export const createOrder = async (c: Context) => {
 };
 
 export const resendOTP = async (c: Context) => {
-	const cashfree = cashfreeService(c);
+	const cashfree = cashfreePaymentService(c);
 	try {
-		const headers = c.get('headers');
+		const headers = c.get('headers_payments');
 		const cf_payment_id = c.req.param('cf_payment_id');
 		// const { otp } = await c.req.body;
 

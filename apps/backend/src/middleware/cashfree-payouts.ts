@@ -1,5 +1,5 @@
 import { createMiddleware } from 'hono/factory';
-import { cashfreeConfig, requiredHeaders } from '../config/cashfree';
+import { cashfreePayoutsConfig, requiredHeaders } from '../config/cashfree';
 import { Context } from 'hono';
 
 type RequiredHeader =
@@ -9,10 +9,10 @@ type RequiredHeader =
 	| 'x-idempotency-key'
 	| 'content-type';
 
-export const cashfreeAuthMiddleware = createMiddleware(
+export const cashfreePayoutsMiddleware = createMiddleware(
 	async (c: Context, next) => {
 		try {
-			const config = cashfreeConfig(c.env);
+			const config = cashfreePayoutsConfig(c.env);
 			const headers: Record<RequiredHeader, string> = {} as any;
 			const missing = [];
 
@@ -49,7 +49,7 @@ export const cashfreeAuthMiddleware = createMiddleware(
 				);
 			}
 
-			c.set('headers', headers);
+			c.set('headers_payouts', headers);
 			await next();
 		} catch (error: unknown) {
 			return c.json(

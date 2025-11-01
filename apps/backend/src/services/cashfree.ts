@@ -1,8 +1,13 @@
-import { cashfreeConfig } from '../config/cashfree';
+import { Context } from 'hono';
+import {
+	cashfreePaymentsConfig,
+	cashfreePayoutsConfig,
+} from '../config/cashfree';
+import { BenificiaryParams } from '@streamkit/shared/src/types/cashfree';
 import axios from 'axios';
 
-export const cashfreeService = (c: any) => {
-	const config = cashfreeConfig(c.env);
+export const cashfreePaymentService = (c: any) => {
+	const config = cashfreePaymentsConfig(c.env);
 	// console.log(`${config.baseUrl}/pg/orders`);
 	const createOrder = async ({
 		orderData,
@@ -168,5 +173,72 @@ export const cashfreeService = (c: any) => {
 		orderPay,
 		submitOTP,
 		resendOTP,
+	};
+};
+
+export const cashfreePayoutService = (c: Context) => {
+	const config = cashfreePayoutsConfig(c.env);
+	const createBeneficiary = async ({
+		headers,
+		beneficiary_data,
+	}: {
+		headers: any;
+		beneficiary_data: object;
+	}) => {
+		try {
+			const response = await axios.post(
+				`${config.baseUrl}/payout/beneficiary`,
+				beneficiary_data,
+				{
+					headers: {
+						...headers,
+						'x-api-version': '2024-01-01',
+					},
+				}
+			);
+
+			return response;
+		} catch (error: unknown) {
+			console.log(headers);
+			console.log(beneficiary_data);
+
+			if (axios.isAxiosError(error)) {
+				console.log('Response Status:', error.response?.status);
+				console.log('Response Data:', error.response?.data);
+			}
+
+			throw new Error(`Error: ${error.message}`);
+		}
+	};
+	const checkBeneficiary = async ({
+		headers,
+		// beneficiary_params,
+		beneficiary_id,
+	}: {
+		headers: any;
+		// beneficiary_params: BenificiaryParams;
+		beneficiary_id: string;
+	}) => {
+		try {
+			// const { beneficiary_id } = beneficiary_params;
+			const response = await axios.get(
+				`${config.baseUrl}/payout/beneficiary?beneficiary_id=${beneficiary_id}`,
+				{
+					headers: {
+						...headers,
+						'x-api-version': '2024-01-01',
+					},
+				}
+			);
+
+			return response;
+		} catch (error: unknown) {
+			throw new Error(`Error: ${error.message}`);
+		}
+	};
+
+	return {
+		createBeneficiary,
+		checkBeneficiary,
 	};
 };

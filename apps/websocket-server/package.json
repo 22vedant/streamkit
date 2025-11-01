@@ -1,4 +1,10 @@
 {
-  "name": "websocket-server",
-  "packageManager": "yarn@4.10.3"
+	"name": "@streamkit/websocket-server",
+	"license": "MIT",
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"lint": "add eslint linting here"
+	},
+	"packageManager": "yarn@4.10.3"
 }

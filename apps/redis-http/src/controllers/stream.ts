@@ -28,3 +28,5 @@ app.post('/add/:key', async (c) => {
 		throw new Error(`❌Error: ${error}`);
 	}
 });
+
+app.get('/get/');

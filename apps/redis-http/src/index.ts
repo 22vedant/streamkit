@@ -4,14 +4,14 @@ import { bearerAuth } from 'hono/bearer-auth';
 import { cors } from 'hono/cors';
 import { simple } from './controllers/simple.ts';
 import { app as handleStream } from './controllers/stream.ts';
-
+import { logger } from 'hono/logger';
 type Bindings = {
 	token: string;
 };
 
 const app = new Hono();
 const token = 'cool';
-
+app.use(logger());
 app.use(
 	'*',
 	bearerAuth({

@@ -1,5 +1,5 @@
 import { Context } from 'hono';
-import { cashfreeConfig } from '../config/cashfree';
+import { cashfreePaymentsConfig } from '../config/cashfree';
 import crypto from 'node:crypto';
 
 const validateWebhookSignature = ({
@@ -31,7 +31,7 @@ export const handlePaymentWebhook = async (c: Context) => {
 
 		const body = await c.req.text();
 		const newBody = timestamp + body;
-		const { clientSecret } = cashfreeConfig(c.env);
+		const { clientSecret } = cashfreePaymentsConfig(c.env);
 		// Validate signature
 		if (
 			!validateWebhookSignature({
