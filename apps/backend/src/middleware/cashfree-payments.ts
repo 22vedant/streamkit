@@ -56,7 +56,6 @@ export const cashfreePaymentsMiddleware = createMiddleware(
 				{
 					success: false,
 					error: error.message,
-					message: 'bruh',
 				},
 				500
 			);
